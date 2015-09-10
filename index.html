@@ -42,8 +42,14 @@
   <script>
     var form = $('#packetForm').submit(function(e) {
       e.preventDefault();
-      var fields = GAPParser($('#packet').val());
       var container = $('#parsedContent');
+      var input = $('#packet').val().trim();
+      if(!input.length) {
+        container.html('<p>No data.</p>');
+        return false;
+      }
+      var fields = GAPParser();
+      
       if(fields === null) {
         container.html('<p>Invalid packet!</p>')
       } else {
