@@ -48,7 +48,7 @@
         container.html('<p>No data.</p>');
         return false;
       }
-      var fields = GAPParser();
+      var fields = GAPParser(input);
       
       if(fields === null) {
         container.html('<p>Invalid packet!</p>')
