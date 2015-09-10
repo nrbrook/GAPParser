@@ -209,6 +209,10 @@
                     return this.data.length === 1;
                 case ret.GAPField.types.APPEARANCE:
                     return this.data.length === 3;
+                case ret.GAPField.types.SECURITY_MANAGER_OOB_FLAGS:
+                    return this.data.length === 1;
+                case ret.GAPField.types.SLAVE_CONNECTION_INTERVAL_RANGE:
+                    return this.data.length === 4;
             }
             return this.data.length > 0;
         },
@@ -266,6 +270,21 @@
                 case ret.GAPField.types.APPEARANCE:
                     var num = new Uint32Array(new Uint8Array([this.data[0], this.data[1], this.data[2], 0]).buffer);
                     return appearances[num] || 'Unknown appearance';
+                case ret.GAPField.types.SECURITY_MANAGER_OOB_FLAGS:
+                    var flags = [];
+                    flags.push(this.data[0] & 0x01 ? 'OOB data present' : 'OOB data not present');
+                    if(this.data[0] & 0x02) {
+                        flags.push('LE Supported (Host)');
+                    }
+                    if(this.data[0] & 0x04) {
+                        flags.push('Simultaneous LE and BR/EDR to Same Device Capable (Host)');
+                    }
+                    flags.push(this.data[0] & 0x08 ? 'Random address' : 'Public address');
+                    return flags.join(', ');
+                case ret.GAPField.types.SLAVE_CONNECTION_INTERVAL_RANGE:
+                    var min = new Uint16Array(this.data.buffer.slice(0,2));
+                    var max = new Uint16Array(this.data.buffer.slice(2,4));
+                    return (min === 0xFFFF ? 'No minimum' : 'Min: '+(min * 1.25)+'ms')+', '+(max === 0xFFFF ? 'No maximum' : 'Max: '+(max * 1.25)+'ms');
             }
             return null;
         }
