@@ -35,7 +35,7 @@
                 break;
             }
             var type = data[i+1];
-            var fieldData = data.slice(i+2, len - 1);
+            var fieldData = data.slice(i+2, i + 1 + len);
             fields.push(new ret.GAPField(type, fieldData));
             i += len + 1;
         }
@@ -80,57 +80,61 @@
         LE_ROLE: 0x1C,
         SIMPLE_PAIRING_HASH_C256: 0x1D,
         SIMPLE_PAIRING_RANDOMIZER_R256: 0x1E,
-        3D_INFORMATION_DATA: 0x3D,
+        THREED_INFORMATION_DATA: 0x3D,
         MANUFACTURER_DATA: 0xFF
     };
 
-    ret.GAPField.typeToStringMap = {
-        ret.GAPField.types.FLAGS: 'Flags',
-        ret.GAPField.types.UUIDS_INCOMPLETE_16: 'Incomplete List of 16-bit Service Class UUIDs',
-        ret.GAPField.types.UUIDS_COMPLETE_16: 'Complete List of 16-bit Service Class UUIDs',
-        ret.GAPField.types.UUIDS_INCOMPLETE_32: 'Incomplete List of 32-bit Service Class UUIDs',
-        ret.GAPField.types.UUIDS_COMPLETE_32: 'Complete List of 32-bit Service Class UUIDs',
-        ret.GAPField.types.UUIDS_INCOMPLETE_128: 'Incomplete List of 128-bit Service Class UUIDs',
-        ret.GAPField.types.UUIDS_COMPLETE_128: 'Complete List of 128-bit Service Class UUIDs',
-        ret.GAPField.types.NAME_SHORT: 'Shortened Local Name',
-        ret.GAPField.types.NAME_COMPLETE: 'Complete Local Name',
-        ret.GAPField.types.TX_POWER: 'Tx Power Level',
-        ret.GAPField.types.DEVICE_CLASS: 'Class of Device',
-        ret.GAPField.types.SIMPLE_PAIRING_HASH_C: 'Simple Pairing Hash C',
-        ret.GAPField.types.SIMPLE_PAIRING_RANDOMIZER_R: 'Simple Pairing Randomizer R',
-        ret.GAPField.types.DEVICE_ID: 'Device ID',
-        ret.GAPField.types.SECURITY_MANAGER_OOB_FLAGS: 'Security Manager Out of Band Flags',
-        ret.GAPField.types.SLAVE_CONNECTION_INTERVAL_RANGE: 'Slave Connection Interval Range',
-        ret.GAPField.types.UUIDS_SERVICE_SOLICITATION_16: 'List of 16-bit Service Solicitation UUIDs',
-        ret.GAPField.types.UUIDS_SERVICE_SOLICITATION_32: 'List of 32-bit Service Solicitation UUIDs',
-        ret.GAPField.types.UUIDS_SERVICE_SOLICITATION_128: 'List of 128-bit Service Solicitation UUIDs',
-        ret.GAPField.types.SERVICE_DATA_16: 'Service Data',
-        ret.GAPField.types.SERVICE_DATA_32: 'Service Data - 32-bit UUID',
-        ret.GAPField.types.SERVICE_DATA_128: 'Service Data - 128-bit UUID',
-        ret.GAPField.types.LE_SECURE_CONNECTIONS_CONFIRMATION_VAL: 'LE Secure Connections Confirmation Value',
-        ret.GAPField.types.LE_SECURE_CONNECTIONS_RANDOM_VAL: 'LE Secure Connections Random Value',
-        ret.GAPField.types.TARGET_ADDRESS_PUBLIC: 'Public Target Address',
-        ret.GAPField.types.TARGET_ADDRESS_RANDOM: 'Random Target Address',
-        ret.GAPField.types.APPEARANCE: 'Appearance',
-        ret.GAPField.types.ADVERTISING_INTERVAL: 'Advertising Interval',
-        ret.GAPField.types.LE_BLUETOOTH_DEVICE_ADDRESS: '​LE Bluetooth Device Address',
-        ret.GAPField.types.LE_ROLE: 'LE Role',
-        ret.GAPField.types.SIMPLE_PAIRING_HASH_C256: 'Simple Pairing Hash C-256',
-        ret.GAPField.types.SIMPLE_PAIRING_RANDOMIZER_R256: 'Simple Pairing Randomizer R-256',
-        ret.GAPField.types.3D_INFORMATION_DATA: '3D Information Data',
-        ret.GAPField.types.MANUFACTURER_DATA: 'Manufacturer Specific Data'
+    ret.GAPField.typeToStringMap = {};
+    ret.GAPField.typeToStringMap[ret.GAPField.types.FLAGS] = 'Flags';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.UUIDS_INCOMPLETE_16] = 'Incomplete List of 16-bit Service Class UUIDs';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.UUIDS_COMPLETE_16] = 'Complete List of 16-bit Service Class UUIDs';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.UUIDS_INCOMPLETE_32] = 'Incomplete List of 32-bit Service Class UUIDs';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.UUIDS_COMPLETE_32] = 'Complete List of 32-bit Service Class UUIDs';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.UUIDS_INCOMPLETE_128] = 'Incomplete List of 128-bit Service Class UUIDs';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.UUIDS_COMPLETE_128] = 'Complete List of 128-bit Service Class UUIDs';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.NAME_SHORT] = 'Shortened Local Name';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.NAME_COMPLETE] = 'Complete Local Name';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.TX_POWER] = 'Tx Power Level';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.DEVICE_CLASS] = 'Class of Device';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.SIMPLE_PAIRING_HASH_C] = 'Simple Pairing Hash C';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.SIMPLE_PAIRING_RANDOMIZER_R] = 'Simple Pairing Randomizer R';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.DEVICE_ID] = 'Device ID';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.SECURITY_MANAGER_OOB_FLAGS] = 'Security Manager Out of Band Flags';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.SLAVE_CONNECTION_INTERVAL_RANGE] = 'Slave Connection Interval Range';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.UUIDS_SERVICE_SOLICITATION_16] = 'List of 16-bit Service Solicitation UUIDs';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.UUIDS_SERVICE_SOLICITATION_32] = 'List of 32-bit Service Solicitation UUIDs';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.UUIDS_SERVICE_SOLICITATION_128] = 'List of 128-bit Service Solicitation UUIDs';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.SERVICE_DATA_16] = 'Service Data';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.SERVICE_DATA_32] = 'Service Data - 32-bit UUID';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.SERVICE_DATA_128] = 'Service Data - 128-bit UUID';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.LE_SECURE_CONNECTIONS_CONFIRMATION_VAL] = 'LE Secure Connections Confirmation Value';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.LE_SECURE_CONNECTIONS_RANDOM_VAL] = 'LE Secure Connections Random Value';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.TARGET_ADDRESS_PUBLIC] = 'Public Target Address';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.TARGET_ADDRESS_RANDOM] = 'Random Target Address';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.APPEARANCE] = 'Appearance';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.ADVERTISING_INTERVAL] = 'Advertising Interval';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.LE_BLUETOOTH_DEVICE_ADDRESS] = '​LE Bluetooth Device Address';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.LE_ROLE] = 'LE Role';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.SIMPLE_PAIRING_HASH_C256] = 'Simple Pairing Hash C-256';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.SIMPLE_PAIRING_RANDOMIZER_R256] = 'Simple Pairing Randomizer R-256';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.THREED_INFORMATION_DATA] = '3D Information Data';
+    ret.GAPField.typeToStringMap[ret.GAPField.types.MANUFACTURER_DATA] = 'Manufacturer Specific Data';
+
+    var formatHex = function(num) {
+        return (num < 16 ? '0' : '')+num.toString(16);
     };
 
     ret.GAPField.prototype = {
-        typeDescription: function() {
-            return ret.GAPField.typeMap[this.type] || 'Unknown';
+
+        typeHex: function() {
+            return formatHex(this.type);
         },
-        rawHexString: function() {
-            var ret = '';
+        dataHex: function() {
+            var s = '';
             for(var i = 0; i < this.data.length; i++) {
-                ret += this.data[i].toString(16);
+                s += formatHex(this.data[i]);
             }
-            return ret;
+            return s;
         },
         _UUIDStrings: function(length) {
             var strings = [];
@@ -138,7 +142,7 @@
                 var offset = i * length;
                 var s = '';
                 for(var j = 0; j < length; j++) {
-                    s += this.data[offset + j].toString(16);
+                    s += formatHex(this.data[offset + j]);
                     if(j === 3 || j === 5 || j === 7 || j === 9) {
                         s += '-';
                     }
@@ -153,30 +157,33 @@
                     return this.data.length === 1;
             }
             return this.data.length > 0;
-        }
-        parsedData: function() {
+        },
+        typeDescription: function() {
+            return ret.GAPField.typeToStringMap[this.type] || 'Unknown';
+        },
+        dataDescription: function() {
             if(!this.validate()) {
                 return 'INVALID!';
             }
             switch(this.type) {
                 case ret.GAPField.types.FLAGS:
-                    var ret = [];
+                    var flags = [];
                     if(this.data[0] & 0x01) {
-                        ret.push('LE Limited Discoverable Mode');
+                        flags.push('LE Limited Discoverable Mode');
                     }
                     if(this.data[0] & 0x02) {
-                        ret.push('LE General Discoverable Mode');
+                        flags.push('LE General Discoverable Mode');
                     }
                     if(this.data[0] & 0x04) {
-                        ret.push('BR/EDR Not Supported');
+                        flags.push('BR/EDR Not Supported');
                     }
                     if(this.data[0] & 0x08) {
-                        ret.push('Simultaneous LE and BR/EDR to Same Device Capable (Controller)');
+                        flags.push('Simultaneous LE and BR/EDR to Same Device Capable (Controller)');
                     }
                     if(this.data[0] & 0x10) {
-                        ret.push('Simultaneous LE and BR/EDR to Same Device Capable (Host)');
+                        flags.push('Simultaneous LE and BR/EDR to Same Device Capable (Host)');
                     }
-                    return ret.join(', ');
+                    return flags.join(', ');
                 case ret.GAPField.types.UUIDS_INCOMPLETE_16:
                 case ret.GAPField.types.UUIDS_COMPLETE_16:
                 case ret.GAPField.types.UUIDS_SERVICE_SOLICITATION_16:
@@ -191,7 +198,7 @@
                     return this._UUIDStrings(16);
                 case ret.GAPField.types.NAME_SHORT:
                 case ret.GAPField.types.NAME_COMPLETE:
-                    return decodeURIComponent(escape(String.fromCharCode.apply(null, uintArray)));
+                    return decodeURIComponent(escape(String.fromCharCode.apply(null, this.data)));
             }
             return null;
         }
