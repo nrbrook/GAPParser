@@ -56,7 +56,7 @@
         var table = $('<table><tr><th>Type (Hex)</th><th>Type</th><th>Data (hex)</th><th>Data</th></tr></table>');
         for(var i = 0; i < fields.length; i++) {
           var field = fields[i];
-          table.append('<tr><td>'+field.typeHex()+'</td><td>'+field.typeDescription()+'</td><td>'+field.dataHex()+'</td><td>'+(field.dataDescription() || 'Cannot parse')+'</td></tr>');
+          table.append('<tr><td>'+field.typeHex()+'</td><td>'+field.typeDescription()+'</td><td>'+field.dataHex()+'</td><td>'+(field.dataDescription() || 'Cannot parse')+(field.truncatedBy > 0 ? ' <span style="color:red;">(invalid length, missing '+field.truncatedBy+' bytes)</span>' : '')+'</td></tr>');
         }
         container.html(table);
       }
