@@ -218,7 +218,7 @@
             return this.data.length > 0;
         },
         typeDescription: function() {
-            return (ret.GAPField.typeToStringMap[this.type] || 'Unknown') + (this.truncatedBy > 0 ? ' <span style="color:red;">(invalid length, missing '+this.truncatedBy+' bytes)</span>' : '');
+            return ret.GAPField.typeToStringMap[this.type] || 'Unknown';
         },
         dataDescription: function() {
             if(!this.validate()) {
