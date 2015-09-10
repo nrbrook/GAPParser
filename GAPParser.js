@@ -120,6 +120,58 @@
     ret.GAPField.typeToStringMap[ret.GAPField.types.THREED_INFORMATION_DATA] = '3D Information Data';
     ret.GAPField.typeToStringMap[ret.GAPField.types.MANUFACTURER_DATA] = 'Manufacturer Specific Data';
 
+    var appearances = {
+        "0": "Unknown",
+        "64": "Generic Phone",
+        "128": "Generic Computer",
+        "192": "Generic Watch",
+        "193": "Watch: Sports Watch",
+        "256": "Generic Clock",
+        "320": "Generic Display",
+        "384": "Generic Remote Control",
+        "448": "Generic Eye-glasses",
+        "512": "Generic Tag",
+        "576": "Generic Keyring",
+        "640": "Generic Media Player",
+        "704": "Generic Barcode Scanner",
+        "768": "Generic Thermometer",
+        "769": "Thermometer: Ear",
+        "832": "Generic Heart rate Sensor",
+        "833": "Heart Rate Sensor: Heart Rate Belt",
+        "896": "Generic Blood Pressure",
+        "897": "Blood Pressure: Arm",
+        "898": "Blood Pressure: Wrist",
+        "960": "Human Interface Device (HID)",
+        "961": "Keyboard",
+        "962": "Mouse",
+        "963": "Joystick",
+        "964": "Gamepad",
+        "965": "Digitizer Tablet",
+        "966": "Card Reader",
+        "967": "Digital Pen",
+        "968": "Barcode Scanner",
+        "1024": "Generic Glucose Meter",
+        "1088": "Generic: Running Walking Sensor",
+        "1089": "Running Walking Sensor: In-Shoe",
+        "1090": "Running Walking Sensor: On-Shoe",
+        "1091": "Running Walking Sensor: On-Hip",
+        "1152": "Generic: Cycling",
+        "1153": "Cycling: Cycling Computer",
+        "1154": "Cycling: Speed Sensor",
+        "1155": "Cycling: Cadence Sensor",
+        "1156": "Cycling: Power Sensor",
+        "1157": "Cycling: Speed and Cadence Sensor",
+        "3136": "Generic: Pulse Oximeter",
+        "3137": "Fingertip",
+        "3138": "Wrist Worn",
+        "3200": "Generic: Weight Scale",
+        "5184": "Generic: Outdoor Sports Activity",
+        "5185": "Location Display Device",
+        "5186": "Location and Navigation Display Device",
+        "5187": "Location Pod",
+        "5188": "Location and Navigation Pod"
+    };
+
     var formatHex = function(num) {
         return (num < 16 ? '0' : '')+num.toString(16);
     };
@@ -155,6 +207,8 @@
             switch(this.type) {
                 case ret.GAPField.types.FLAGS:
                     return this.data.length === 1;
+                case ret.GAPField.types.APPEARANCE:
+                    return this.data.length === 3;
             }
             return this.data.length > 0;
         },
@@ -199,6 +253,19 @@
                 case ret.GAPField.types.NAME_SHORT:
                 case ret.GAPField.types.NAME_COMPLETE:
                     return decodeURIComponent(escape(String.fromCharCode.apply(null, this.data)));
+                case ret.GAPField.types.TARGET_ADDRESS_RANDOM:
+                case ret.GAPField.types.TARGET_ADDRESS_PUBLIC:
+                case ret.GAPField.types.LE_BLUETOOTH_DEVICE_ADDRESS:
+                    var segs = [];
+                    for(var i = 0; i < this.data.length; i++) {
+                        segs.push(formatHex(this.data[i]));
+                    }
+                    return segs.join(':');
+                case ret.GAPField.types.TX_POWER:
+                    return new Int8Array(this.data)[0]; // convert to signed integer
+                case ret.GAPField.types.APPEARANCE:
+                    var num = new Uint32Array(new Uint8Array([this.data[0], this.data[1], this.data[2], 0]).buffer);
+                    return appearances[num] || 'Unknown appearance';
             }
             return null;
         }
