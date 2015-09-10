@@ -36,15 +36,16 @@
             }
             var type = data[i+1];
             var fieldData = data.slice(i+2, i + 1 + len);
-            fields.push(new ret.GAPField(type, fieldData));
+            fields.push(new ret.GAPField(type, fieldData, len - 1 - fieldData.length));
             i += len + 1;
         }
         return fields;
     };
 
-    ret.GAPField = function GAPField(type, data) {
+    ret.GAPField = function GAPField(type, data, truncatedBy) {
         this.type = type;
         this.data = data;
+        this.truncatedBy = truncatedBy;
     };
 
     ret.GAPField.types = {
@@ -217,7 +218,7 @@
             return this.data.length > 0;
         },
         typeDescription: function() {
-            return ret.GAPField.typeToStringMap[this.type] || 'Unknown';
+            return (ret.GAPField.typeToStringMap[this.type] || 'Unknown') + (this.truncatedBy > 0 ? ' <span style="color:red;">(invalid length, missing '+this.truncatedBy+' bytes)</span>' : '');
         },
         dataDescription: function() {
             if(!this.validate()) {
